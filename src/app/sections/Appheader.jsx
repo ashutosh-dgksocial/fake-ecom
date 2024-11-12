@@ -1,10 +1,14 @@
 "use client"
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function AppHeader() {
     const [navOpen, setNavOpen] = useState(false);
-
+    // const [itemCount, setItemCount] = useState(0);
+    // useEffect(() => {
+    //     const cartCount = localStorage.getItem('cartCount') ?? 0;
+    //     setItemCount(cartCount);
+    // })
     return (
         <header>
             <nav className="bg-white shadow-lg">
@@ -16,7 +20,10 @@ function AppHeader() {
                         <a href="#" className="text-gray-700 hover:text-blue-500">Services</a>
                         <a href="#" className="text-gray-700 hover:text-blue-500">Contact</a>
                     </div>
-                    <Link href={'./cart'} className="rounded-[2px] hover:text-white text-black px-4 p-2 border cursor-pointer border-black hover:bg-blue-500 hover:border-white duration-300">Cart (0)</Link>
+                    <Link href={'./cart'} className="rounded-[2px] hover:text-white text-black px-4 p-2 border cursor-pointer border-black hover:bg-blue-500 hover:border-white duration-300">
+                        Cart
+                        {/* ({itemCount}) */}
+                    </Link>
                     <div className="md:hidden">
                         <button onClick={() => setNavOpen(!navOpen)} className="focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-black">
