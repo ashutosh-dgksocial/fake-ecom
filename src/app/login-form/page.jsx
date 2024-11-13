@@ -3,15 +3,14 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
-const Signup = () => {
+const LoginForm = () => {
     const [userData, setUserData] = useState({ email: '', password: '' })
     const [existingUserData, setExistingUserData] = useState([]);
 
     useEffect(() => {
         const checkStoreUser = JSON.parse(localStorage.getItem('users')) ?? [];
         setExistingUserData(checkStoreUser);
-
-    }, [userData])
+    }, [])
 
     const handleInput = (event) => {
         setUserData({ ...userData, [event.target.name]: event.target.value }); // {name: "valueXYZ"}
@@ -19,20 +18,23 @@ const Signup = () => {
 
     const handleSignIn = (e) => {
         e.preventDefault();
-        console.log("Submitted Data:", userData);
-        if (existingUserData.email === userData.email) {
-            alert('you Logged In successfully...')
-            return;
+        const findUser = existingUserData.find((Edata) => Edata.email === userData.email);
+
+        if (findUser && findUser.password === userData.password) {
+            console.log("Submitted Data:", userData);
+            console.log('existing user', existingUserData);
+
+            // Reset user data after successful login
+            setUserData({
+                email: '',
+                password: ''
+            });
+            alert('You logged in successfully...');
+        } else {
+            alert('Email or password did not match.');
         }
-
-        setUserData({
-            userName: '',
-            email: '',
-            phon: '',
-            password: ''
-        });
-
     };
+    
     return (
         <div className=''>
             <div className='flex justify-center items-center w-[300px] mx-auto bg-green-600 rounded-xl py-10'>
@@ -49,7 +51,7 @@ const Signup = () => {
 
                     <input onChange={handleInput}
                         value={userData.password}
-                        type="text"
+                        type="password"
                         name='password'
                         className='text-black py-2 px-4 rounded-xl'
                         placeholder='password' required />
@@ -68,4 +70,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default LoginForm;

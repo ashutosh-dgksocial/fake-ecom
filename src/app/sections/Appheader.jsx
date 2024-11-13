@@ -12,7 +12,7 @@ function AppHeader() {
     //     const cartCount = localStorage.getItem('cartCount') ?? 0;
     //     setItemCount(cartCount);
     // })
-    const user = true;
+    const user = false;
     return (
         <header>
             <nav className="bg-white shadow-lg">
@@ -20,19 +20,22 @@ function AppHeader() {
                     <div>
                         {user ? (
                             <>
-                                <span className="p-4 shadow text-green-500">Welcom | #user!</span>
+                                <span className="p-4 shadow text-green-500">welcome | #user!</span>
                                 <button className="text-black border-2 py-1 px-4 hover:bg-black hover:text-white active:scale-90 duration-200 ml-4 ">Logout</button>
 
                             </>) :
 
                             (
                                 <>
-                                    <Link href="/signup-form" className="text-xl font-bold text-black">
-                                        <Signup />
+                                   <div className="flex gap-2">
+                                   <Link href="/signup-form" className="text-xl font-bold text-black hover:text-red-500">
+                                        Signup 
                                     </Link>
-                                    <Link href="#" className="text-xl font-bold text-black">
-                                        <Login />
+                                    <span className="text-black">|</span>
+                                    <Link href="login-form" className="text-xl font-bold text-red-500  hover:text-red-500 hover:underline">
+                                        Login
                                     </Link>
+                                   </div>
                                 </>
                             )
                         }
@@ -41,9 +44,9 @@ function AppHeader() {
                     </div>
                     <div className="hidden md:flex space-x-8">
                         <Link href="/" className="text-gray-700 hover:text-blue-500">Home</Link>
-                        <a href="#" className="text-gray-700 hover:text-blue-500">About</a>
-                        <a href="#" className="text-gray-700 hover:text-blue-500">Services</a>
-                        <a href="#" className="text-gray-700 hover:text-blue-500">Contact</a>
+                        <a href="#" className="text-gray-700 hover:text-blue-500">page2</a>
+                        <a href="#" className="text-gray-700 hover:text-blue-500">page3</a>
+                        <a href="#" className="text-gray-700 hover:text-blue-500">page4</a>
                     </div>
                     <Link href={'./cart'} className="rounded-[2px] hover:text-white text-black px-4 p-2 border cursor-pointer border-black hover:bg-blue-500 hover:border-white duration-300">
                         Cart
