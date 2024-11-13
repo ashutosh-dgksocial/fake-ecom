@@ -1,12 +1,12 @@
 'use client'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-
+import { useRouter } from 'next/navigation'
 const Signup = () => {
     const [userData, setUserData] = useState({ userName: '', email: '', phon: '', password: '' })
     const [initialUsers, setInitialUsers] = useState([]);
     const [storedUsers, setStoredUsers] = useState([]) // this will hold the local userrr
-
+    const router = useRouter();
 
     useEffect(() => {
         if (initialUsers.length <= 0) { return }
@@ -41,6 +41,7 @@ const Signup = () => {
             password: ''
         });
         alert('you Signed In successfully')
+        router.push('/login-form')
     };
 
 

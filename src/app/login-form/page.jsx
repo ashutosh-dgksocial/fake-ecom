@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-
+import { useRouter } from 'next/navigation'
 const LoginForm = () => {
     const [userData, setUserData] = useState({ email: '', password: '' })
     const [existingUserData, setExistingUserData] = useState([]);
+    const router = useRouter();
 
     useEffect(() => {
         const checkStoreUser = JSON.parse(localStorage.getItem('users')) ?? [];
@@ -30,11 +31,12 @@ const LoginForm = () => {
                 password: ''
             });
             alert('You logged in successfully...');
+            router.push('/')
         } else {
             alert('Email or password did not match.');
         }
     };
-    
+
     return (
         <div className=''>
             <div className='flex justify-center items-center w-[300px] mx-auto bg-green-600 rounded-xl py-10'>
