@@ -1,19 +1,44 @@
 "use client"
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Signup from "../signup-form/page";
+import Login from "../login-form/page";
 
 function AppHeader() {
     const [navOpen, setNavOpen] = useState(false);
+    // const {user, logout} = useAuth();
     // const [itemCount, setItemCount] = useState(0);
     // useEffect(() => {
     //     const cartCount = localStorage.getItem('cartCount') ?? 0;
     //     setItemCount(cartCount);
     // })
+    const user = true;
     return (
         <header>
             <nav className="bg-white shadow-lg">
                 <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
-                    <a href="#" className="text-xl font-bold text-black">Logo</a>
+                    <div>
+                        {user ? (
+                            <>
+                                <span className="p-4 shadow text-green-500">Welcom | #user!</span>
+                                <button className="text-black border-2 py-1 px-4 hover:bg-black hover:text-white active:scale-90 duration-200 ml-4 ">Logout</button>
+
+                            </>) :
+
+                            (
+                                <>
+                                    <Link href="/signup-form" className="text-xl font-bold text-black">
+                                        <Signup />
+                                    </Link>
+                                    <Link href="#" className="text-xl font-bold text-black">
+                                        <Login />
+                                    </Link>
+                                </>
+                            )
+                        }
+
+
+                    </div>
                     <div className="hidden md:flex space-x-8">
                         <Link href="/" className="text-gray-700 hover:text-blue-500">Home</Link>
                         <a href="#" className="text-gray-700 hover:text-blue-500">About</a>
@@ -43,7 +68,7 @@ function AppHeader() {
                     </div>
                 )}
             </nav>
-        </header>
+        </header >
     );
 }
 
