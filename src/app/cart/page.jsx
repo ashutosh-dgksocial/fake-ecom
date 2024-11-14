@@ -1,6 +1,7 @@
 "use client"
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const [localItem, setLocalItem] = useState([]);
@@ -45,6 +46,7 @@ const Cart = () => {
     const filterItem = localItem.filter(Product => Product.id !== pId)
     setLocalItem(filterItem)
     localStorage.setItem('cartStore', JSON.stringify(filterItem));
+    toast.error("Item remove from cart", { autoClose: 1000 })
 
   }
   // Calculate total 

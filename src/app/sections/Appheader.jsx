@@ -14,8 +14,8 @@ function AppHeader() {
                     <div className="flex items-center">
                         {userName ? (
                             <>
-                                <span className="p-4 shadow text-[#000000] font-semibold capitalize">
-                                    Welcome, {userName}!
+                                <span className="p-4 text-2xl text-[#000000] font-semibold capitalize">
+                                    Welcome | {userName}!
                                 </span>
                                 <button
                                     onClick={LogOut}
@@ -41,6 +41,9 @@ function AppHeader() {
                         <a href="#" className="text-gray-700 hover:text-blue-500 cursor-not-allowed">Page 3</a>
                         <a href="#" className="text-gray-700 hover:text-blue-500 cursor-not-allowed">Page 4</a>
                     </div>
+                    <Link href="/wishlist" className="rounded-full hover:text-white text-black h-10 w-10 flex justify-center items-center border cursor-pointer border-black hover:bg-red-500 hover:border-white duration-300">
+                        ❤
+                    </Link>
                     <Link href="/cart" className="rounded-[2px] hover:text-white text-black px-4 p-2 border cursor-pointer border-black hover:bg-blue-500 hover:border-white duration-300">
                         Cart
                     </Link>
@@ -57,12 +60,17 @@ function AppHeader() {
                     <div className="md:hidden">
                         <div className="flex flex-col space-y-2 px-4 py-2 bg-gray-100">
                             <Link href="/" className="text-gray-700 hover:text-blue-500">Home</Link>
+                            <Link href="/wishlist" className="rounded-full hover:text-white text-black h-10 w-10 flex justify-center items-center border cursor-pointer border-black hover:bg-red-500 hover:border-white duration-300">
+                                ❤
+                            </Link>
+                            <Link href="/cart" className="rounded-[2px] w-16 hover:text-white text-black px-4 p-2 border cursor-pointer border-black hover:bg-blue-500 hover:border-white duration-300">
+                                Cart
+                            </Link>
                             {/* Mobile links */}
                             {userName ? (
                                 <>
                                     {/* Welcome message for mobile */}
-                                    <span className="text-gray-700">Welcome, {userName}!</span>
-                                    <button onClick={LogOut} className="text-gray-700 hover:text-blue-500">Logout</button>
+                                    <button onClick={LogOut} className="text-gray-700 hover:text-blue-500 border cursor-pointer border-black">Logout</button>
                                 </>
                             ) : (
                                 <>

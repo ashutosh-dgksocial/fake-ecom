@@ -1,8 +1,35 @@
 "use client"
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 export default function ProductPage({ params }) {
     // Unwrap the Promise is now a promise
+
+    const [cartData, setCartData] = useState([]);
+
+    useEffect(() => {
+        const storedCart = localStorage.getItem("cartStore");
+        if (storedCart) {
+            setCartData(JSON.parse(storedCart));
+        }
+    }, []);
+    useEffect(() => {
+        if (cartData.length > 0) {
+            localStorage.setItem("cartStore", JSON.stringify(cartData));
+        }
+    }, [cartData]);
+
+    const handleAddToCart = (item) => {
+        const itemExists = cartData.some(
+            (alreadyInCart) => alreadyInCart.id === item.id
+        );
+        if (!itemExists) {
+            setCartData([...cartData, item]);
+            toast.success("Item added to the cart successfully", { autoClose: 1000 });
+        } else {
+            toast.error("Item is already in the cart", { autoClose: 1000 });
+        }
+    };
+
 
     const unwrappedParams = React.use(params);
     const { id } = unwrappedParams;
@@ -14,6 +41,9 @@ export default function ProductPage({ params }) {
     if (!checkProduct) {
         return <div className="text-center">Product not found</div>;
     }
+
+
+
     return (
         <div className="max-w-4xl mx-auto p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -29,8 +59,9 @@ export default function ProductPage({ params }) {
                     <span className="text-xl font-semibold text-green-600">${checkProduct.price}</span>
 
                     {/* Add to Cart Button */}
-                    <button className="mt-4 bg-purple-600 text-white py-2 px-4 rounded-[4px] hover:bg-white hover:text-black transition duration-200 ml-4">
-                        Add to Cart
+                    <button className="border p-2 hover:bg-white hover:text-black ml-4"
+                        onClick={() => handleAddToCart(checkProduct)}
+                    >add to cart
                     </button>
                 </div>
             </div>
