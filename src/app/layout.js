@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import AppHeader from "./sections/Appheader";
+import { LoginProvider } from "./context/userContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +25,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <AppHeader />
-        <div className="mx-auto mt-6 w-full px-0 lg:my-6 lg:px-0 ">
-          <div className="mx-auto lg:max-w-screen-xl w-full">
-            <div className="w-full px-4">{children}</div>
+        <LoginProvider>
+          <AppHeader />
+          <div className="mx-auto mt-6 w-full px-0 lg:my-6 lg:px-0 ">
+            <div className="mx-auto lg:max-w-screen-xl w-full">
+              <div className="w-full px-4">{children}</div>
+            </div>
           </div>
-        </div>
+        </LoginProvider>
       </body>
     </html>
   );

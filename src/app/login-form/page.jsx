@@ -3,10 +3,13 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '../context/userContext'
+
 const LoginForm = () => {
     const [userData, setUserData] = useState({ email: '', password: '' })
     const [existingUserData, setExistingUserData] = useState([]);
     const router = useRouter();
+    const { userName, setUserName } = useAuth();
 
     useEffect(() => {
         const checkStoreUser = JSON.parse(localStorage.getItem('users')) ?? [];
@@ -20,12 +23,12 @@ const LoginForm = () => {
     const handleSignIn = (e) => {
         e.preventDefault();
         const findUser = existingUserData.find((Edata) => Edata.email === userData.email);
-
         if (findUser && findUser.password === userData.password) {
-            console.log("Submitted Data:", userData);
-            console.log('existing user', existingUserData);
+            // console.log("Submitted Data:", userData);
+            // console.log('existing user', existingUserData);
+            setUserName(findUser.userName);
 
-            // Reset user data after successful login
+            // Reset user
             setUserData({
                 email: '',
                 password: ''

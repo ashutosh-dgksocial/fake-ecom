@@ -2,36 +2,37 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+
 const Signup = () => {
-    const [userData, setUserData] = useState({ userName: '', email: '', phon: '', password: '' })
-    const [initialUsers, setInitialUsers] = useState([]);
-    const [storedUsers, setStoredUsers] = useState([]) // this will hold the local userrr
+    const [userData, setUserData] = useState({ userName: '', email: '', phon: '', password: '' });
+    const [storedUsers, setStoredUsers] = useState([]); // This will hold the local users
     const router = useRouter();
 
     useEffect(() => {
-        if (initialUsers.length <= 0) { return }
-        localStorage.setItem("users", JSON.stringify(initialUsers));
-
+        // Load existing users from localStorage when the component mounts
         const checkStoreUser = JSON.parse(localStorage.getItem('users')) ?? [];
         setStoredUsers(checkStoreUser);
-
-        // console.log('initial array', initialUsers)
-    }, [initialUsers])
+    }, []);
 
     const handleInput = (event) => {
-        setUserData({ ...userData, [event.target.name]: event.target.value }); // {name: "valueXYZ"}
+        setUserData({ ...userData, [event.target.name]: event.target.value });
     }
+
     const handleSignIn = (e) => {
         e.preventDefault();
-        // localStorage.setItem(`user-${userData.userName}`, JSON.stringify(userData))
-        const checkUserExist = storedUsers.some((sameuser) => sameuser.email === userData.email);
-        if (checkUserExist) {
-            alert('Email already exists')
+
+        // Check if the user already exists
+        const userExists = storedUsers.some((sameuser) => sameuser.email === userData.email);
+        if (userExists) {
+            alert('Email already exists');
             return;
         }
 
-        setInitialUsers([...initialUsers, userData]);
-
+        
+        // Add new user to local storage
+        const updatedUsers = [...storedUsers, userData];
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        setStoredUsers(updatedUsers);
 
         // Resetting the input fields
         setUserData({
@@ -40,16 +41,17 @@ const Signup = () => {
             phon: '',
             password: ''
         });
-        alert('you Signed In successfully')
-        router.push('/login-form')
+        
+        alert('You signed up successfully');
+        // Uncomment the line below to redirect after signup
+        router.push('/login-form');
     };
-
 
     return (
         <div className=''>
             <div className='flex justify-center items-center w-[300px] mx-auto bg-pink-700 rounded-xl py-10'>
                 <form onSubmit={handleSignIn} className='flex flex-col gap-5'>
-                    <p className='text-md rounded-xl font-semibold'>Please Fill this form to sign-up</p>
+                    <p className='text-md rounded-xl font-semibold'>Please fill this form to sign-up</p>
                     <input onChange={handleInput}
                         value={userData.userName}
                         type="text"
@@ -62,7 +64,7 @@ const Signup = () => {
                         type="email"
                         name='email'
                         className='text-black py-2 px-4 rounded-xl'
-                        placeholder='Enter you email'
+                        placeholder='Enter your email'
                         required />
                     <input onChange={handleInput}
                         value={userData.phon}
@@ -76,13 +78,12 @@ const Signup = () => {
                         type="password"
                         name='password'
                         className='text-black py-2 px-4 rounded-xl'
-                        placeholder='password' required />
+                        placeholder='Password' required />
 
-                    <button type='submit' className='shadow-xl bg-orange-500 hover:bg-orange-700 duration-200 active:scale-90 text-black rounded-xl py-2 '>SINGUP</button>
-                    <p>Already Signed-UP / <Link href={'/login-form'} className='text-black underline font-semibold'>Login</Link></p>
+                    <button type='submit' className='shadow-xl bg-orange-500 hover:bg-orange-700 duration-200 active:scale-90 text-black rounded-xl py-2 '>SIGNUP</button>
+                    <p>Already signed up? / <Link href={'/login-form'} className='text-black underline font-semibold'>Login</Link></p>
                 </form>
             </div>
-
         </div>
     )
 }

@@ -9,10 +9,10 @@ const Cart = () => {
     const dataLocal = localStorage.getItem('cartStore') ?? "[]";
     if (dataLocal) {
       const parseData = JSON.parse(dataLocal);
-      // Ensure each product has a quantity property
+      // quantity property
       const itemsWithQuantity = parseData.map(item => ({
         ...item,
-        quantity: item.quantity || 1 // Default to 1 if no quantity is found
+        quantity: item.quantity || 1 // if quanittyyy empty
       }));
       setLocalItem(itemsWithQuantity);
     }
@@ -20,8 +20,6 @@ const Cart = () => {
 
   useEffect(() => {
     localStorage.setItem('cartCount', JSON.stringify(localItem.length));
-    // if (localItem.length - 1 >= 0) {
-    // }
   }, [localItem]);
 
   // so quantity is not exist on the LocalItem but we are here concatenating quantity here and also access the quantity with prevItems. quantity
